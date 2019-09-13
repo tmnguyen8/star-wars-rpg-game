@@ -1,3 +1,67 @@
+// ******************** PSEUDO CODE *************************
+// create available characters with the following data attributes
+    // assign the following attributes to each character using OOP
+        // source of image
+        // CSS properties (i.g. class to style)
+        // attacking power
+        // health point
+        // counter attack power
+// On click a character from available characters
+    // assign that character to myChar with the following attributes
+        // source of image
+        // CSS properties (i.g. class to style)
+        // attacking power (increment after each attack)
+        // health point (decreases after each hit)
+    // assign the rest of the other characters as available enemies
+// display my character in my character area in HTML
+// display available enemies in my enemies area in HTML
+    // enemies are assigned with the following attributes
+        // source of image
+        // CSS properties (i.g. class to style)
+        // counter attack power (the same after each attack)
+        // health point (decreases after each hit)
+// On click a character from available enemies
+    // my character and selected enemies are inside Fight Arena
+        // on press Attack
+            // enemy's health power is decreased by my attacking power
+            // my attacking power increases
+            // check if enemy's health power is <= 0, if it is I win
+            // allow user to choose another enemy from available enemies
+            // Update game stats
+                // my health power
+                // my attack power (incrasing value)
+                // enemy health power
+                // enemy counter attack power (no change)
+        // enemy counter attack
+            // my health power is decreased by enemy counter attack
+            // check if my health power is <= 0, if it is I lose, Game Over
+            // Update game stats
+                // my health power
+                // my attack power (incrasing value)
+                // enemy health power
+                // enemy counter attack power (no change)
+
+
+// ******************** GLOBAL VARIABLES *************************
+
+// ******************** FUNCTIONS *************************
+
+// ******************** EXECUTIONS *************************
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
 // GLOBAL VARIABLES
 // ************************************
 var availableChar = [
