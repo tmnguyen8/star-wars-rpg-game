@@ -12,10 +12,22 @@
 <body>
     <div class="availableChar">
         <h4>Pick Your Character</h4>
-        <div id="availableCharImage">
-            <div class="card-body">
-                
-                <p class="card-text" id="myCharScore"></p>
+        <div id="availableCharImage" class="row">
+            <div class="card-body" >
+                <img src="assets/images/dv-image.jpg" id="availableChar" class="img-responsive" data-name="darthV">
+                <p  id="myCharScore"></p>
+            </div>
+            <div class="card-body" >
+                <img src="assets/images/luke-image.jpg" id="availableChar" class="img-responsive" data-name="lukeS">
+                <p  id="myCharScore"></p>
+            </div>
+            <div class="card-body" >
+                <img src="assets/images/obi-image.jpg" id="availableChar" class="img-responsive" data-name="obiW">
+                <p  id="myCharScore"></p>
+            </div>
+            <div class="card-body" >
+                <img src="assets/images/princess-image.jpg" id="availableChar" class="img-responsive" data-name="princessL">
+                <p id="myCharScore"></p>
             </div>
         </div>
     </div>
@@ -28,9 +40,9 @@
         </div>
     </div>
 
-    <div class="myEnemies">
+    <div class="availableEnemy">
         <h4>Enemies Available To Attack</h4>
-        <div id="myEnemiesImage">
+        <div id="myEnemyImage">
 
         </div>
     </div>
@@ -41,8 +53,9 @@
         </div>
     </div>
     <div class="scoreBoard">
-        <p id="myAttack"></p>
-        <p id="enemyAttack"></p>
+        <div id="myAttack"></div>
+        <div id="enemyAttack"></div>
+        <div id="result"></div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

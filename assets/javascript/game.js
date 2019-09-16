@@ -66,46 +66,156 @@ var characters = {
         counterAttack: 6 //change to random later
     },
     princessL: {
-        name: "Obi-wan Kenobi",
-        source: "assets/images/obi-image.jpg",
+        name: "Princess Leia",
+        source: "assets/images/princess-image.jpg",
         attackerPower: 45, //change to random later
         healthPoint: 90,
         counterAttack: 12 //change to random later
     },
+};
 
-    newGame: function() {
-        // Here we pick a random word.
-        var objKeys = Object.keys(this.wordsToP);
-        this.wordInPlay = objKeys[Math.floor(Math.random() * objKeys.length)];
-    
-        // Split the chosen word up into its individual letters.
-        this.lettersOfTheWord = this.wordInPlay.split("");
-        // Builds the representation of the word we are trying to guess and displays it on the page.
-        // At the start it will be all underscores since we haven't guessed any letters ("_ _ _ _").
-        this.rebuildWordView();
-        // This function sets the number of guesses the user gets, and renders it to the HTML.
-        this.processUpdateTotalGuesses();
+var charKeys = Object.keys(characters);
+var availableCharList = charKeys;
+var myEnemyList = [];
+//myChar variables
+var myCharName = "";
+var myCharAttackPower = 0;
+var myCharHP = 0;
+//defneder variables
+var defenderName = "";
+var defenderCounterAttack = 0;
+var defenderHP = 0;
 
-        for (i of Object.keys(this.characters)) {
-            console.log(i);
-            console.log(typeof i);
-            var charCard = $("<div>");
-            charCard.addClass("card-body my-card");
-            // charCard.addId(i);
-            var charImage = $("<img>");
-            console.log(i.source);
-            charImage.attr("src", i.source);
-    
-            $(i).append(charImage)
-            $("#availableCharImage").append(charCard)
-        }
-      },
-      
-    
-}
 // ******************** FUNCTIONS *************************
+// function to remove an element from an array;
+function removeArr(array, element) {
+    var result = [];
+    for (i of array) {
+        if (i !== element) {
+            result.push(i)
+        }
+    }
+    return result;
+}
+
+// function to display my character
+function displayMyChar () {    
+    $("#myCharImage").html(`
+    <img src="${characters[myCharName].source}" class="img-responsive" id="myChar">
+    `)
+}
+// function to display my enemies
+function displayMyEnemies () {
+    // Testing & Debugging
+    // console.log("availableCharList",availableCharList);
+    // console.log("myCharName",myCharName);
+    // console.log("my enemyList", myEnemyList);
+
+    // loop through myEnemyList to display in #myEnemyImage
+    for (i of myEnemyList) {        
+        $("#myEnemyImage").append(`
+        <img src="${characters[i].source}" class="img-responsive" id="myEnemy" data-name="${i}">
+        `);
+    };
+}
+// function to display defender in fight arena
+function displayFightArena () {
+    //testing and debugging
+    // console.log("defender is", defenderName);
+    // console.log("defender object is",characters[defenderName])
+    // console.log("defender source", characters[defenderName].source)
+    $(".fightSection").html(`
+    <button id="attackDefender">Attack</button>
+    <img src="${characters[defenderName].source}" class="img-responsive" id="myEnemy" data-name="${defenderName}">
+    `);
+};
+
+//attack defender function to keep track of health points and my attack Power
+function attackDefender() {
+    // clear out the old stats
+    $("#myAttack").empty();
+    $("#enemyAttack").empty();
+
+    $("#myAttack").append(`
+        <p>I attacked ${defenderName} with ${myCharAttackPower}.</p>
+
+    `);
+
+    defenderHP -= myCharAttackPower;
+    myCharAttackPower += characters[myCharName].attackerPower;
+
+    myCharHP -= defenderCounterAttack;
+
+    $("#myAttack").append(`
+        <p>My new attack power is ${myCharAttackPower}.</p>
+        <p>${defenderName} has ${defenderHP} health point.</p>
+    `);
+
+    $("#enemyAttack").append(`
+        <p>${defenderName} attacked me with ${defenderCounterAttack}.</p>
+        <p>I have  ${myCharHP} health point.</p>
+    `);
+
+    // testing & debugging
+    console.log("defenderHP is",defenderHP);
+    console.log("myAttackPower is", myCharAttackPower);
+    console.log("myCharHP is", myCharHP);
+}
+
+function displayResult(){
+    if (defenderHP <= 0) {
+        
+        $("#myEnemyImage").empty();
+        displayMyEnemies();
+        $(".fightSection").empty();
+        $("#result").append(`
+            <h3>${defenderName} is defeated!!</h3>
+            <h3>Pick another defender.</h3>
+        `);
+        myEnemyList = removeArr(myEnemyList, defenderName);
+        defenderHP = 0;
+        defenderCounterAttack = 0;
+        defenderName = "";
+    } else if (myEnemyList == []) {
+        $("#result").html(`<h3>You Win!!!</h3>`)
+    
+    } else if (myCharHP <= 0) {
+        $("#result").html(`<h3>Game Over</h3>`)
+    }
+}
 
 // ******************** EXECUTIONS *************************
+// Beginning of the Game where you select your character
+$(document).on("click", "#availableChar", function() {
+    myCharName = $(this).attr("data-name");
+    myCharAttackPower = characters[myCharName].attackerPower;
+    myCharHP = characters[myCharName].healthPoint;
+    myEnemyList = removeArr(availableCharList, myCharName);
+    console.log(`${myCharName} is clicked`);
+    displayMyChar();
+    displayMyEnemies()
+    $(".availableChar").empty();
+});
+
+// select defender from #myEnemy to attack
+$(document).on("click", "#myEnemy", function() {
+    defenderName = $(this).attr("data-name");
+    defenderCounterAttack = characters[defenderName].counterAttack;
+    defenderHP = characters[defenderName].healthPoint;
+    myEnemyList = removeArr(myEnemyList, defenderName);
+    console.log(`${defenderName} defender is clicked`);
+    displayFightArena()
+    $("#myEnemyImage").empty();
+    displayMyEnemies();
+    $("#result").empty();
+
+});
+$(document).on("click", "#attackDefender", function() {
+    attackDefender();
+    displayResult();
+
+});
+
 
 
     
