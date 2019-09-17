@@ -1,0 +1,8 @@
+.main-content {
+    background-image: url("/assets/images/background.jpg");
+    background-size: 120%;
+    background-repeat: no-repeat;
+    
+}
+*{
+    background-color: rbga(0,0,0,0.5);
