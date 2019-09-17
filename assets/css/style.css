@@ -1,8 +1,9 @@
 .main-content {
-    background-image: url("./assets/images/background.jpg");
-    background-size: 120%;
+    background-image: url("https://tmnguyen8.github.io/star-wars-rpg-game/assets/images/background.jpg");
+    background-size: cover;
     background-repeat: no-repeat;
     
+};
+div{
+    background-color: yellow;
 }
-*{
-    background-color: rbga(0,0,0,0.5);
